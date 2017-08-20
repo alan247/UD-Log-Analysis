@@ -25,9 +25,11 @@ A python module that retrieves information from a bogus newspaper website. It us
 
 Here's what this command does:
 
--`psql` the PostgreSQL command line program
--`-d news` connect to the database named news which has been set up for you
--`-f newsdata.sql` run the SQL statements in the file newsdata.sql
+`psql` the PostgreSQL command line program
+
+`-d news` connect to the database named news which has been set up for you
+
+`-f newsdata.sql` run the SQL statements in the file newsdata.sql
 
 ### Create views:
 This tool won't work unless you create these two views in the database. Execute the following SQL code in your virtual machine. First connect to the news database with `psql news` or `psql` followed by `\c news`. Then just copy/paste each of these statements and run them.
