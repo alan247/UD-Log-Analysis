@@ -104,8 +104,9 @@ def create_reports():
     """
     os.system('cls' if os.name == 'nt' else 'clear')
 
+    # Create title with border
     title = "NEWS WEBSITE REPORT TOOL"
-    title_len = len(title) + 8
+    title_len = len(title) + 8  # 4 spaces on each side of the title
     title_border = "#" * title_len + "#\n"
     title_spacer = "#" + " " * (title_len - 1) + "#\n"
     title_text = "#    " + title + "   #\n"
@@ -113,11 +114,13 @@ def create_reports():
     print title_border, title_spacer, title_text, title_spacer, title_border
     print "\n"
 
+    # Create tables
     for item in reports_list:
         print item[0] + "\n"
         print create_table(item[1], item[2], item[3], item[4])
         print "\n\n"
 
+    # Print creation date and time
     print "Report created on: " + datetime.datetime.now().strftime(
         '%d %b %Y, %H:%M') + "\n\n"
 

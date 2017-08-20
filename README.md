@@ -1,10 +1,12 @@
 # Udacity SQL Log Analysis Project
 
-A python module that retrieves information from a bogus newspaper website. It uses PostgreSQL to create a report that answers the following questions:
+A simple and scalable python module that retrieves information from a bogus newspaper website. It uses PostgreSQL to create a report that answers the following questions:
 
 1. What are the most popular three articles of all time?
 2. Who are the most popular authors of all time?
 3. On which days did more than 1% of requests lead to errors?
+
+It's designed to allow easy addition of new reports. Adding a new table to the report is as easy as storing a new SQL query in a variable and adding a new item to a list. The code will take care of the rest.
 
 ## Instructions
 ### Install:
