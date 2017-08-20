@@ -38,7 +38,7 @@ This tool won't work unless you create these two views in the database. Execute 
 create view daily_errors as
         select count(*)::decimal as errors, time::date as day
         from log
-        where status != '200 OK'
+        where status not like '%200%'
         group by day
         order by day asc;
 ```
