@@ -50,7 +50,7 @@ create view daily_hits as
         order by day asc;
 ```
 
-#####  Ready to create the reports!
+###  Ready to create the reports!
 1. Move `create_reports.py` into the vagrant folder.
 2. In your virtual machine, make sure you are in the vagrant directory `cd /vagrant`
 2. Run the following `python create_reports.py`
