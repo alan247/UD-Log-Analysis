@@ -21,7 +21,7 @@ It's designed to allow easy addition of new reports. Adding a new table to the r
 4. When the installation is done (will take a while!), get into the virtual machine with `vagrant ssh`
 
 ### Create the database:
-1. Download the [database](https://d17h27t6h515a5.cloudfront.net/topher/2016/August/57b5f748_newsdata/newsdata.zip) from Udacity.
+1. Download and unzip the [database](https://d17h27t6h515a5.cloudfront.net/topher/2016/August/57b5f748_newsdata/newsdata.zip) from Udacity.
 2. Move `newsdata.sql` to the vagrant folder.
 3. In your virtual machine, run: `psql -d news -f newsdata.sql`
 
@@ -34,22 +34,24 @@ Here's what this command does:
 `-f newsdata.sql` run the SQL statements in the file newsdata.sql
 
 ### Create views:
-This tool won't work unless you create these two views in the database. Execute the following SQL code in your virtual machine. First connect to the news database with `psql news` or `psql` followed by `\c news`. Then just copy/paste each of these statements and run them.
+This tool won't work unless you create these two views in the database. To create the views, in your virtual machine run: `psql -d news -f create_views.sql`
+
+The `create_views.sql` file contains the following:
 
 ```sql
-create view daily_errors as
-        select count(*)::decimal as errors, time::date as day
-        from log
-        where status not like '%200%'
-        group by day
-        order by day asc;
+CREATE VIEW daily_errors AS
+		SELECT COUNT(*)::decimal AS errors, time::date AS day
+		FROM log
+		WHERE status not LIKE '%200%'
+		GROUP BY day
+		ORDER BY day ASC;
 ```
 ```sql
-create view daily_hits as
-        select count(*)::decimal as hits, time::date as day
-        from log
-        group by day
-        order by day asc;
+CREATE VIEW daily_hits AS
+		SELECT COUNT(*)::decimal AS hits, time::date AS day
+		FROM log
+		GROUP BY day
+		ORDER BY day ASC;
 ```
 
 ###  Ready to create the reports!

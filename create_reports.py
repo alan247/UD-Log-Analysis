@@ -11,29 +11,29 @@ import psycopg2
 DB_NAME = "news"
 
 TOP_ARTICLES_QUERY = """
-select articles.title, count(log.path)
-from articles, log
-where log.path like '%'|| articles.slug ||'%'
-and log.status like '%200%'
-group by articles.title
-order by count(log.path) desc limit 3;
+SELECT articles.title, COUNT(log.path)
+FROM articles, log
+WHERE log.path = '/article/' || articles.slug
+AND log.status LIKE '%200%'
+GROUP BY articles.title
+ORDER BY COUNT(log.path) DESC LIMIT 3;
 """
 
 TOP_AUTHORS_QUERY = """
-select authors.name, count(*) as hits
-from authors, articles, log
-where log.path like '%'|| articles.slug ||'%'
-and articles.author = authors.id
-and log.status = '200 OK'
-group by authors.name, authors.id
-order by hits desc
+SELECT authors.name, COUNT(*) AS hits
+FROM authors, articles, log
+WHERE log.path = '/article/' || articles.slug
+AND articles.author = authors.id
+AND log.status = '200 OK'
+GROUP BY authors.name, authors.id
+ORDER BY hits DESC
 """
 
 HIGH_ERRORS_QUERY = """
-select a.day, to_char(b.errors/a.hits*100, '99.99')
-from daily_hits as a
-join daily_errors as b on a.day=b.day
-where b.errors/a.hits > 0.01;
+SELECT a.day, to_char(b.errors/a.hits*100, '99.99')
+FROM daily_hits AS a
+JOIN daily_errors AS b ON a.day=b.day
+WHERE b.errors/a.hits > 0.01;
 """
 
 reports_list = [
@@ -51,7 +51,7 @@ def db_query(query):
         query       (str):  The SQL query to be executed
 
     Returns:
-        Array with rows resulting from the query
+        List with rows resulting from the query
     """
     conn = psycopg2.connect(database=DB_NAME)
     c = conn.cursor()
@@ -125,4 +125,5 @@ def create_reports():
         '%d %b %Y, %H:%M') + "\n\n"
 
 
-create_reports()
+if __name__ == '__main__':
+    create_reports()
