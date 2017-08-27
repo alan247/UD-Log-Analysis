@@ -42,7 +42,7 @@ The `create_views.sql` file contains the following:
 CREATE VIEW daily_errors AS
 		SELECT COUNT(*)::decimal AS errors, time::date AS day
 		FROM log
-		WHERE status !== '200 OK'
+		WHERE status != '200 OK'
 		GROUP BY day
 		ORDER BY day ASC;
 ```
